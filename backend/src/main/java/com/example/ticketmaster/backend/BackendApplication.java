@@ -27,28 +27,29 @@ public class BackendApplication {
 	@Bean
 	public CommandLineRunner init(EventRepository eventRepo, UserRepository userRepo){
 		return args -> {
-
-		    Event event1 = createEvent(eventRepo, "Party", "2019-12-29T17:00:00.000Z");
-            Event event2 = createEvent(eventRepo, "Seminar", "2020-01-04T17:00:00.000Z");
-		    User user = createUser(userRepo, event1, "Asim", "Ghani", "asim@gmail.com", 36);
+		    Event event1 = createEvent(eventRepo, "Party","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",80L);
+		    User user = createUser(userRepo, event1, "Asim", "Ghani", "asim@gmail.com", 12345678912314L);
 		};
 	}
 
-    private Event createEvent(EventRepository eventRepo, String name, String time) {
-        Instant instant = Instant.parse(time);
+    private Event createEvent(EventRepository eventRepo, String name, String event_date, String event_end_date, Long quota) {
+        Instant instant = Instant.parse(event_date);
+        Instant instant_end = Instant.parse(event_end_date);
         Event event = new Event();
 
         event.setName(name);
         event.setEvent_date(instant);
+        event.setEvent_end_date(instant_end);
+        event.setQuota(quota);
         return eventRepo.save(event);
     }
 
-    private User createUser(UserRepository userRepo, Event event, String f_name, String l_name, String email, int age) {
+    private User createUser(UserRepository userRepo, Event event, String f_name, String l_name, String email, Long tc) {
         User user = new User();
 
         user.setFirst_name(f_name);
         user.setLast_name(l_name);
-        user.setAge(age);
+        user.setTc(tc);
         user.setEmail(email);
         user.setEvent(event);
         return userRepo.save(user);

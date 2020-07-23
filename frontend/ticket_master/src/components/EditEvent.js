@@ -12,9 +12,11 @@ class EditEvent extends Component {
         this.state ={
             id: '',
             name: '',
-            event_date: new Date()
+            event_date: new Date(),
+            event_end_date: new Date()
         }
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.loadEvent = this.loadEvent.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -42,6 +44,9 @@ class EditEvent extends Component {
         this.setState({ event_date: date });
     }
 
+    handleEndDateChange(date) {
+        this.setState({ event_end_date: date });
+    }
     async loadEvent() {
         const response = await fetch('/api/event/' + window.localStorage.getItem("eventId"));
         const event = await response.json();
@@ -72,7 +77,12 @@ class EditEvent extends Component {
                             <Label for="event_date">Date</Label>
                             <DatePicker selected={this.state.event_date} onChange={this.handleDateChange} />
                         </FormGroup>
-                        
+
+                        <FormGroup>
+                            <Label for="event_end_date">Date</Label>
+                            <DatePicker selected={this.state.event_end_date} onChange={this.handleEndDateChange} />
+                        </FormGroup>
+
                         <FormGroup>
                             <Button color="primary" type="submit">Edit</Button>{' '}
                             <Button color="secondary" tag={Link} to="/event">Cancel</Button>

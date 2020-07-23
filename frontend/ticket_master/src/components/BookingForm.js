@@ -10,7 +10,7 @@ import AppNav from './AppNav';
 class BookingForm extends Component {
 
     emptyItem = {
-        age: '',
+        tc: '',
         email: '',
         event: {id: 1},
         first_name: '',
@@ -77,8 +77,8 @@ class BookingForm extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label for="age">Age</Label>
-                        <Input type="text" name="age" id="age" 
+                        <Label for="tc">Age</Label>
+                        <Input type="text" name="tc" id="tc"
                             onChange={this.handleChange} />
                     </FormGroup>
 

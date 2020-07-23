@@ -42,12 +42,9 @@ public class UserController {
 
     @PostMapping("/users")
     @ApiOperation(value = "Save user and book an event",
-            notes = "Provide first name of minimum 2 characters, correctly formatted email, age greater than 13 " +
+            notes = "Provide first name of minimum 2 characters, correctly formatted email" +
                     "and id of existing event to book an event")
     ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException {
-        if (user.getAge() <= 13) {
-            throw new ApiRequestException(ApiRequestException.VALID);
-        }
         User result = userRepository.save(user);
         return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
     }

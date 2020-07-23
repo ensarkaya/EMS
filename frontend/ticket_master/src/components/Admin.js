@@ -48,12 +48,11 @@ class Admin extends Component {
                                 <tr>
                                     <th width="20%">First Name</th>
                                     <th width="20%">Last Name</th>
-                                    <th width="10%">Age</th>
+                                    <th width="20%">TC</th>
                                     <th width="30%">Email</th>
                                     <th width="20%">Event</th>   
                                 </tr>
                             </thead>
-
                             <tbody>
                                 {rows}
                             </tbody>

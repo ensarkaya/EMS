@@ -23,10 +23,10 @@ public class User {
     @NotNull(message = "First name can not be null")
     @Size(min = 2, message = "First name can not be less than 2 characters")
     private String first_name;
-
+    @NotNull(message = "Last name can not be null")
     private String last_name;
 
-    private int age;
+    private Long tc;
 
     @Email(message = "Email is not formatted correctly")
     private String email;

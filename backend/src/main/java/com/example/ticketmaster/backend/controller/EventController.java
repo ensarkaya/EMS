@@ -53,14 +53,16 @@ public class EventController {
 
     @PostMapping("/events")
     @ApiOperation(value = "Save an event",
-            notes = "Provide an event name of greater than 2 characters and a date in the future to create an event",
+            notes = "Provide an event name of greater than 2 characters, start date > today, end date> start date to create an event",
             response = Event.class)
     ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
         if (event.getName().length() < 3) {
             throw new ApiRequestException(ApiRequestException.VALID);
         } else if(event.getEvent_date().compareTo(Instant.now()) < 0) {
             throw new ApiRequestException(ApiRequestException.VALID);
-        } else {
+        } else if(event.getEvent_end_date().compareTo(event.getEvent_date()) < 0) {
+            throw new ApiRequestException(ApiRequestException.VALID);
+        }else {
             try {
                 Event result = eventRepository.save(event);
                 return ResponseEntity.created(new URI("/api/events" + result.getId())).body(result);
@@ -73,7 +75,7 @@ public class EventController {
 
     @PutMapping("/event/{id}")
     @ApiOperation(value = "Modify an existing event",
-            notes = "Provide an id of existing event and name greater than 2 characters and a date in the future to modify an event",
+            notes = "Provide an id of existing event and same constraints of creating event to modify an event unless its start date is not passed",
             response = Event.class)
     ResponseEntity<Event> updateEvent(@Valid @RequestBody Event event) {
         ResponseEntity found = getEvent(event.getId());
@@ -82,6 +84,8 @@ public class EventController {
             if(event.getName().length() < 3) {
                 throw new ApiRequestException(ApiRequestException.VALID);
             } else if(event.getEvent_date().compareTo(Instant.now()) < 0) {
+                throw new ApiRequestException(ApiRequestException.VALID);
+            } else if(event.getEvent_end_date().compareTo(event.getEvent_date()) < 0) {
                 throw new ApiRequestException(ApiRequestException.VALID);
             } else {
                 try {
@@ -92,26 +96,26 @@ public class EventController {
                 }
             }
         }
-        throw new ApiRequestException(ApiRequestException.WRONG);
+        throw new ApiRequestException(ApiRequestException.NO_RECORDS_FOUND);
     }
 
     @DeleteMapping("/events/{id}")
     @ApiOperation(value = "Delete an event",
-            notes = "Provide an id of an existing event to delete it. Already booked events can not be deleted",
+            notes = "Provide an id of an existing event to delete it. Already started events can not be deleted",
             response = Event.class)
-    ResponseEntity<?> deleteEvent(@PathVariable Long id) {
-
-        if(userRepository.findAllByEvent(id) <= 0 ) {
-            try {
-                eventRepository.deleteById(id);
-                return ResponseEntity.ok().build();
-            } catch (Exception e) {
-                System.out.println(ApiRequestException.WRONG);
+    ResponseEntity<?> deleteEvent(@Valid @RequestBody Event event) {
+        ResponseEntity found = getEvent(event.getId());
+        if(found.hasBody()){
+            if( event.getEvent_date().compareTo(Instant.now()) < 0) {
+                throw new ApiRequestException(ApiRequestException.VALID);
+            } else {
+                try {
+                    eventRepository.deleteById(event.getId());
+                    return ResponseEntity.ok().build();
+                } catch (Exception e) {
+                    System.out.println(ApiRequestException.WRONG);
+                }
             }
-        } else {
-            throw new ApiRequestException("There are " +
-                    userRepository.findAllByEvent(id) +
-                    " ticket(s) sold for this event, so delete not allowed");
         }
         throw new ApiRequestException(ApiRequestException.NO_RECORDS_FOUND);
     }

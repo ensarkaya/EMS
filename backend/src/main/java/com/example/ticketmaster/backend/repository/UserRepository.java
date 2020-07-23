@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int findAllByEvent(Long id);
 
     @Query(
-            value = "SELECT users.first_name, users.last_name, users.age, users.email, events.name \n" +
+            value = "SELECT users.first_name, users.last_name, users.tc, users.email, events.name \n" +
                     "AS event_name FROM users INNER JOIN events ON users.event_id = events.id",
             nativeQuery = true)
     List<?> findAllBookings();

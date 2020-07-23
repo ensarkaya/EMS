@@ -14,7 +14,6 @@ class User extends Component {
         }
         this.bookEvent = this.bookEvent.bind(this);
     }
-
     bookEvent(id) {
         window.localStorage.setItem("eventId", id);
         this.props.history.push('/booking');
@@ -39,6 +38,7 @@ class User extends Component {
                         <div id={event.id} className="boxed" style={{ justifyContent: 'center'}}>
                             <h3>{event.name}</h3>
                             <Moment format="DD/MM/YYYY">{event.event_date}</Moment>
+                            <Moment format="DD/MM/YYYY">{event.event_end_date}</Moment>
                             <hr />
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                             <Button 

@@ -11,7 +11,8 @@ class EventForm extends Component {
 
     emptyItem = {
         name: '',
-        event_date: new Date()
+        event_date: new Date(),
+        event_end_date: new Date()
     }
 
     constructor(props) {
@@ -26,6 +27,7 @@ class EventForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.editEvent = this.editEvent.bind(this);
     }
 
@@ -57,23 +59,29 @@ class EventForm extends Component {
         item.event_date = date;
         this.setState({ item });
     }
-
+    handleEndDateChange(date) {
+        let item = {...this.state.item};
+        item.event_end_date = date;
+        this.setState({ item });
+    }
     async remove(id) {
+        const item = this.state.item;
         const response = await fetch(`/api/events/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(item)
         });
         try {
             const body = await response.json();
-        if(body.httpStatus === "BAD_REQUEST") {
-            console.log(body.message);
-        } else {
-            let updatedEvents = [...this.state.events].filter(i => i.id !== id);
-            this.setState({ events: updatedEvents });
-        }
+            if(body.httpStatus === "BAD_REQUEST") {
+                console.log(body.message);
+            } else {
+                let updatedEvents = [...this.state.events].filter(i => i.id !== id);
+                this.setState({ events: updatedEvents });
+            }
         } catch(e) {} 
         this.componentDidMount();
     }
@@ -100,6 +108,7 @@ class EventForm extends Component {
             <tr key={event.id}>
                 <td>{event.name}</td>
                 <td><Moment date={event.event_date} format="DD/MM/YYYY" /></td>
+                <td><Moment date={event.event_end_date} format="DD/MM/YYYY" /></td>
                 <td><Button size="sm" color="secondary" onClick={() => this.editEvent(event.id)} >Modify</Button></td>
                 <td><Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Delete</Button></td>
             </tr>   
@@ -118,10 +127,15 @@ class EventForm extends Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="event_date">Date</Label>
+                            <Label for="event_date">Start Date</Label>
                             <DatePicker selected={this.state.item.event_date} onChange={this.handleDateChange} />
                         </FormGroup>
-                        
+
+                        <FormGroup>
+                            <Label for="event_end_date">End Date</Label>
+                            <DatePicker selected={this.state.item.event_end_date} onChange={this.handleEndDateChange} />
+                        </FormGroup>
+
                         <FormGroup>
                             <Button color="primary" type="submit">Create</Button>{' '}
                             <Button color="secondary" tag={Link} to="/admin">Cancel</Button>
@@ -136,7 +150,8 @@ class EventForm extends Component {
                             <thead>
                                 <tr>
                                     <th width="30%">Name</th>   
-                                    <th>Date</th>
+                                    <th width="30%">Start Date</th>
+                                    <th width="30%">End Date</th>
                                     <th width="10%">Action</th>
                                 </tr>
                             </thead>
