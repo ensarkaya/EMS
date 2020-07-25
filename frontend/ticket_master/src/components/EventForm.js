@@ -12,7 +12,8 @@ class EventForm extends Component {
     emptyItem = {
         name: '',
         event_date: new Date(),
-        event_end_date: new Date()
+        event_end_date: new Date(),
+        quota: 0
     }
 
     constructor(props) {
@@ -64,6 +65,7 @@ class EventForm extends Component {
         item.event_end_date = date;
         this.setState({ item });
     }
+
     async remove(id) {
         const item = this.state.item;
         console.log(item);
@@ -110,6 +112,7 @@ class EventForm extends Component {
                 <td>{event.name}</td>
                 <td><Moment date={event.event_date} format="DD/MM/YYYY" /></td>
                 <td><Moment date={event.event_end_date} format="DD/MM/YYYY" /></td>
+                <td>{event.quota}</td>
                 <td><Button size="sm" color="secondary" onClick={() => this.editEvent(event.id)} >Modify</Button></td>
                 <td><Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Delete</Button></td>
             </tr>   
@@ -125,6 +128,12 @@ class EventForm extends Component {
                             <Label for="name">Title</Label>
                             <Input type="text" name="name" id="name" value={this.state.item.name}
                                 onChange={this.handleChange} autoComplete="name" />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="quota">Quota</Label>
+                            <Input type="number" name="quota" id="quota" value={this.state.item.quota}
+                                   onChange={this.handleChange} min={0} autoComplete={0} />
                         </FormGroup>
 
                         <FormGroup>
@@ -150,9 +159,10 @@ class EventForm extends Component {
                         <Table className="mt-4">
                             <thead>
                                 <tr>
-                                    <th width="30%">Name</th>   
+                                    <th width="30%">Name</th>
                                     <th width="30%">Start Date</th>
                                     <th width="30%">End Date</th>
+                                    <th width="30%">Quota</th>
                                     <th width="10%">Action</th>
                                 </tr>
                             </thead>

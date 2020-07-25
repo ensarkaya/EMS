@@ -13,7 +13,8 @@ class EditEvent extends Component {
             id: '',
             name: '',
             event_date: new Date(),
-            event_end_date: new Date()
+            event_end_date: new Date(),
+            quota: 0
         }
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -47,6 +48,7 @@ class EditEvent extends Component {
     handleEndDateChange(date) {
         this.setState({ event_end_date: date });
     }
+
     async loadEvent() {
         const response = await fetch('/api/event/' + window.localStorage.getItem("eventId"));
         const event = await response.json();
@@ -71,6 +73,12 @@ class EditEvent extends Component {
                             <Label for="name">Title</Label>
                             <Input type="text" name="name" id="name" value={this.state.name}
                                 onChange={this.onChange} autoComplete="name" />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="quota">Quota</Label>
+                            <Input type="number" name="quota" id="quota" value={this.state.quota}
+                                   onChange={this.onChange} autoComplete="0" />
                         </FormGroup>
 
                         <FormGroup>
