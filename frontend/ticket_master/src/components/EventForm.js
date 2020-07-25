@@ -66,6 +66,7 @@ class EventForm extends Component {
     }
     async remove(id) {
         const item = this.state.item;
+        console.log(item);
         const response = await fetch(`/api/events/${id}`, {
             method: 'DELETE',
             headers: {
@@ -82,7 +83,7 @@ class EventForm extends Component {
                 let updatedEvents = [...this.state.events].filter(i => i.id !== id);
                 this.setState({ events: updatedEvents });
             }
-        } catch(e) {} 
+        } catch(e) {}
         this.componentDidMount();
     }
 

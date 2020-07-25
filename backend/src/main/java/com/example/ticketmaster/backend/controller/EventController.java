@@ -103,18 +103,17 @@ public class EventController {
     @ApiOperation(value = "Delete an event",
             notes = "Provide an id of an existing event to delete it. Already started events can not be deleted",
             response = Event.class)
-    ResponseEntity<?> deleteEvent(@Valid @RequestBody Event event) {
-        ResponseEntity found = getEvent(event.getId());
-        if(found.hasBody()){
-            if( event.getEvent_date().compareTo(Instant.now()) < 0) {
-                throw new ApiRequestException(ApiRequestException.VALID);
-            } else {
-                try {
-                    eventRepository.deleteById(event.getId());
-                    return ResponseEntity.ok().build();
-                } catch (Exception e) {
-                    System.out.println(ApiRequestException.WRONG);
-                }
+    ResponseEntity<?> deleteEvent(@PathVariable Long id) {
+        ResponseEntity found = getEvent(id);
+        Event event = (Event) found.getBody();
+        if(event.getEvent_date().compareTo(Instant.now()) < 0) {
+            throw new ApiRequestException(ApiRequestException.VALID);
+        }   else {
+            try {
+                eventRepository.deleteById(id);
+                return ResponseEntity.ok().build();
+            } catch (Exception e) {
+                System.out.println(ApiRequestException.WRONG);
             }
         }
         throw new ApiRequestException(ApiRequestException.NO_RECORDS_FOUND);
