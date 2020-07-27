@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Input, Button, Label, Form, FormGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { store } from 'react-notifications-component';
+import { store} from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import 'animate.css';
 
@@ -21,7 +21,7 @@ class BookingForm extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            item: this.emptyItem 
+            item: this.emptyItem
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -77,8 +77,8 @@ class BookingForm extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Label for="tc">Age</Label>
-                        <Input type="text" name="tc" id="tc"
+                        <Label for="tc">TC</Label>
+                        <Input type="number" name="tc" id="tc" minLength="13" maxLength="15"
                             onChange={this.handleChange} />
                     </FormGroup>
 

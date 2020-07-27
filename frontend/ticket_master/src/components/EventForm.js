@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import Moment from 'react-moment';
 import "react-datepicker/dist/react-datepicker.css";
-
 import AppNav from './AppNav';
+import ErrorToast from "./ErrorToast";
+import SuccessToast from "./SuccessToast";
 
 class EventForm extends Component {
 
@@ -23,7 +24,9 @@ class EventForm extends Component {
             date: new Date(),
             isLoading: true,
             events: [],
-            item: this.emptyItem
+            item: this.emptyItem,
+            isSuccess: false,
+            isError: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -79,14 +82,19 @@ class EventForm extends Component {
         });
         try {
             const body = await response.json();
-            if(body.httpStatus === "BAD_REQUEST") {
-                console.log(body.message);
-            } else {
+
+            if(body === "ACCEPTED") {
+                this.setState({isSuccess: true, isError: false});
+                setTimeout(() => this.setState({isSuccess:false}),3000);
                 let updatedEvents = [...this.state.events].filter(i => i.id !== id);
-                this.setState({ events: updatedEvents });
+                this.setState({events: updatedEvents});
+            }
+            if(body.httpStatus === "BAD_REQUEST") {
+                this.setState({isError: true, isSuccess: false});
+                setTimeout(() => this.setState({isError:false}),3000);
             }
         } catch(e) {}
-        this.componentDidMount();
+        await this.componentDidMount();
     }
 
     editEvent(id) {
@@ -120,59 +128,69 @@ class EventForm extends Component {
 
         return (
             <div>
-                <AppNav />
-                <Container>
-                    {title}
-                    <Form onSubmit={this.handleSubmit}>
-                        <FormGroup>
-                            <Label for="name">Title</Label>
-                            <Input type="text" name="name" id="name" value={this.state.item.name}
-                                onChange={this.handleChange} autoComplete="name" />
-                        </FormGroup>
+                <div style={{"display": this.state.isSuccess || this.state.isError ? "block" : "none"}}>
+                    <SuccessToast children={{show: this.state.isSuccess, message:"İşlem başarıyla gerçekleşti"}}/>
 
-                        <FormGroup>
-                            <Label for="quota">Quota</Label>
-                            <Input type="number" name="quota" id="quota" value={this.state.item.quota}
-                                   onChange={this.handleChange} min={0} autoComplete={0} />
-                        </FormGroup>
+                    <ErrorToast children={{show: this.state.isError, message:"İşlem başarısız oldu"}}/>
+                </div>
 
-                        <FormGroup>
-                            <Label for="event_date">Start Date</Label>
-                            <DatePicker selected={this.state.item.event_date} onChange={this.handleDateChange} />
-                        </FormGroup>
+                <div>
+                    <AppNav />
+                    <Container>
+                        {title}
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <Label for="name">Title</Label>
+                                <Input type="text" name="name" id="name" value={this.state.item.name}
+                                       onChange={this.handleChange} autoComplete="name" />
+                            </FormGroup>
 
-                        <FormGroup>
-                            <Label for="event_end_date">End Date</Label>
-                            <DatePicker selected={this.state.item.event_end_date} onChange={this.handleEndDateChange} />
-                        </FormGroup>
+                            <FormGroup>
+                                <Label for="quota">Quota</Label>
+                                <Input type="number" name="quota" id="quota" value={this.state.item.quota}
+                                       onChange={this.handleChange} min={0} autoComplete={0} />
+                            </FormGroup>
 
-                        <FormGroup>
-                            <Button color="primary" type="submit">Create</Button>{' '}
-                            <Button color="secondary" tag={Link} to="/admin">Cancel</Button>
-                        </FormGroup>
-                    </Form>
-                </Container>
+                            <FormGroup>
+                                <Label for="event_date">Start Date</Label>
+                                <DatePicker selected={this.state.item.event_date} onChange={this.handleDateChange} />
+                            </FormGroup>
 
-                {''}
+                            <FormGroup>
+                                <Label for="event_end_date">End Date</Label>
+                                <DatePicker selected={this.state.item.event_end_date} onChange={this.handleEndDateChange} />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Button color="primary" type="submit">Create</Button>{' '}
+                                <Button color="secondary" tag={Link} to="/admin">Cancel</Button>
+                            </FormGroup>
+                        </Form>
+                    </Container>
+
+                    {''}
                     <Container>
                         <h3>Events List</h3>
                         <Table className="mt-4">
                             <thead>
-                                <tr>
-                                    <th width="30%">Name</th>
-                                    <th width="30%">Start Date</th>
-                                    <th width="30%">End Date</th>
-                                    <th width="30%">Quota</th>
-                                    <th width="10%">Action</th>
-                                </tr>
+                            <tr>
+                                <th width="30%">Name</th>
+                                <th width="30%">Start Date</th>
+                                <th width="30%">End Date</th>
+                                <th width="30%">Quota</th>
+                                <th width="10%">Action</th>
+                            </tr>
                             </thead>
 
                             <tbody>
-                                {rows}
+                            {rows}
                             </tbody>
                         </Table>
                     </Container>
+                </div>
             </div>
+
+
         );
     }
 }

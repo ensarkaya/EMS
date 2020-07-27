@@ -28,7 +28,9 @@ public class BackendApplication {
 	public CommandLineRunner init(EventRepository eventRepo, UserRepository userRepo){
 		return args -> {
 		    Event event1 = createEvent(eventRepo, "Party","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",80L);
-		    User user = createUser(userRepo, event1, "Asim", "Ghani", "asim@gmail.com", 12345678912314L);
+            Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",80L);
+
+            User user = createUser(userRepo, event1, "Asim", "Ghani", "asim@gmail.com", 12345678912314L);
 		};
 	}
 

@@ -1,5 +1,6 @@
 package com.example.ticketmaster.backend.controller;
 
+import com.example.ticketmaster.backend.exception.ApiException;
 import com.example.ticketmaster.backend.exception.ApiRequestException;
 import com.example.ticketmaster.backend.model.Event;
 import com.example.ticketmaster.backend.repository.EventRepository;
@@ -105,15 +106,18 @@ public class EventController {
             response = Event.class)
     ResponseEntity<?> deleteEvent(@PathVariable Long id) {
         ResponseEntity found = getEvent(id);
-        Event event = (Event) found.getBody();
-        if(event.getEvent_date().compareTo(Instant.now()) < 0) {
-            throw new ApiRequestException(ApiRequestException.VALID);
-        }   else {
-            try {
-                eventRepository.deleteById(id);
-                return ResponseEntity.ok().build();
-            } catch (Exception e) {
-                System.out.println(ApiRequestException.WRONG);
+        if(found.hasBody()){
+            Event event = (Event) found.getBody();
+            if(event.getEvent_date().compareTo(Instant.now()) < 0) {
+                throw new ApiRequestException(ApiRequestException.VALID);
+            }   else {
+                try {
+                    eventRepository.deleteById(id);
+                    HttpStatus accepted = HttpStatus.ACCEPTED;
+                    return ResponseEntity.ok().body(accepted);
+                } catch (Exception e) {
+                    System.out.println(ApiRequestException.WRONG);
+                }
             }
         }
         throw new ApiRequestException(ApiRequestException.NO_RECORDS_FOUND);
