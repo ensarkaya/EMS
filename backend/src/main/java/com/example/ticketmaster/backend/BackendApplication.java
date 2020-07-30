@@ -27,11 +27,15 @@ public class BackendApplication {
 	@Bean
 	public CommandLineRunner init(EventRepository eventRepo, UserRepository userRepo){
 		return args -> {
-		    Event event1 = createEvent(eventRepo, "Party","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",80L);
-            Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",80L);
+		    Event event1 = createEvent(eventRepo, "Party","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",60L);
+            Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",70L);
+            Event event3 = createEvent(eventRepo, "Party3","2021-12-19T17:00:00.000Z","2021-12-29T17:00:00.000Z",80L);
 
-            User user = createUser(userRepo, event1, "Asim", "Ghani", "asim@gmail.com", 12345678912314L);
-		};
+            User user = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar@gmail.com1", 12345678912345L);
+            User user2 = createUser(userRepo, event2, "Ensar2", "Kaya2", "ensar@gmail.com2", 12345678912345L);
+            User user3 = createUser(userRepo, event3, "Ensar3", "Kaya3", "ensar@gmail.com3", 12345678912345L);
+
+        };
 	}
 
     private Event createEvent(EventRepository eventRepo, String name, String event_date, String event_end_date, Long quota) {

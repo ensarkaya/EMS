@@ -2,8 +2,10 @@ package com.example.ticketmaster.backend.repository;
 
 import com.example.ticketmaster.backend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -19,4 +21,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
                     "AS event_name FROM users INNER JOIN events ON users.event_id = events.id",
             nativeQuery = true)
     List<?> findAllBookings();
+
+    @Transactional
+    @Modifying
+    @Query(
+            value = "DELETE FROM users WHERE event_id = ?1",
+            nativeQuery = true
+    )
+    void deleteUserByEventId(Long id);
 }

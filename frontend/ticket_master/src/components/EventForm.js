@@ -114,7 +114,7 @@ class EventForm extends Component {
 
         if(isLoading)
              return (<div>Loading...</div>);
-
+        console.log(events);
         let rows = events.map(event => 
             <tr key={event.id}>
                 <td>{event.name}</td>

@@ -6,7 +6,7 @@ class AppNav extends Component {
         return (
             <div>
                 <Navbar color="dark" dark expand="md">
-                <NavbarBrand href="/">Ticket Master</NavbarBrand>
+                <NavbarBrand href="/">Etkinlik Yönetim Sistemi</NavbarBrand>
                 <Nav className="ml-auto" navbar>
                 <NavItem>
                     <NavLink href="/">Home</NavLink>

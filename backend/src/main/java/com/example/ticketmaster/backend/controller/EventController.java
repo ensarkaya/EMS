@@ -112,6 +112,7 @@ public class EventController {
                 throw new ApiRequestException(ApiRequestException.VALID);
             }   else {
                 try {
+                    userRepository.deleteUserByEventId(id);
                     eventRepository.deleteById(id);
                     HttpStatus accepted = HttpStatus.ACCEPTED;
                     return ResponseEntity.ok().body(accepted);
