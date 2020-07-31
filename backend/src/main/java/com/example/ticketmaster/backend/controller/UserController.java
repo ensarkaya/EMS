@@ -5,6 +5,7 @@ import com.example.ticketmaster.backend.model.User;
 import com.example.ticketmaster.backend.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,12 @@ public class UserController {
             notes = "Provide first name of minimum 2 characters, correctly formatted email" +
                     "and id of existing event to book an event")
     ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException {
-        User result = userRepository.save(user);
-        return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
+        if(userRepository.findUsersWithSameIdForAnEvent(user.getEvent().getId(), user.getTc()) == 0)
+        {
+            HttpStatus accepted = HttpStatus.ACCEPTED;
+            User result = userRepository.save(user);
+            return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
+        }
+        throw new ApiRequestException(ApiRequestException.DUPLICATION);
     }
-
 }

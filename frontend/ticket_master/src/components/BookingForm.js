@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { store} from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import 'animate.css';
-
+import ErrorToast from "./ErrorToast";
+import SuccessToast from "./SuccessToast";
 import AppNav from './AppNav';
 
 class BookingForm extends Component {
@@ -21,7 +22,9 @@ class BookingForm extends Component {
         super(props);
         this.state = {
             isLoading: true,
-            item: this.emptyItem
+            item: this.emptyItem,
+            isSuccess: false,
+            isError: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +33,7 @@ class BookingForm extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const item = this.state.item;
-        await fetch(`/api/users`, {
+        const response = await fetch(`/api/users`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -38,7 +41,20 @@ class BookingForm extends Component {
             },
             body: JSON.stringify(item)
         });
-        this.props.history.push('/user');
+        try {
+            const body = await response.json();
+            console.log(body);
+            if(body.id > 0) {
+                this.setState({isSuccess: true, isError: false});
+                setTimeout(() => this.setState({isSuccess:false}),3000);
+                setTimeout(() => this.props.history.push('/user'),3000);
+            }
+            if(body.httpStatus === "BAD_REQUEST") {
+                this.setState({isError: true, isSuccess: false});
+                setTimeout(() => this.setState({isError:false}),3000);
+            }
+        } catch(e) {}
+        await this.componentDidMount();
     }
 
     handleChange(event) {
@@ -56,65 +72,60 @@ class BookingForm extends Component {
         item.event.id = event;
     }
 
+
+
     render() {
         const title = <h3>Booking Form</h3>
         return (
             <div>
-            <AppNav />
-            <Container>
-                {title}
-                <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Label for="first_name">First Name</Label>
-                        <Input type="text" name="first_name" id="first_name" 
-                            onChange={this.handleChange} autoComplete="name" />
-                    </FormGroup>
+                <div style={{"display": this.state.isSuccess || this.state.isError ? "block" : "none"}}>
+                    <SuccessToast children={{show: this.state.isSuccess, message:"İşlem başarıyla gerçekleşti"}}/>
 
-                    <FormGroup>
-                        <Label for="last_name">Last Name</Label>
-                        <Input type="text" name="last_name" id="last_name" 
-                            onChange={this.handleChange} autoComplete="name" />
-                    </FormGroup>
+                    <ErrorToast children={{show: this.state.isError, message:"İşlem başarısız oldu"}}/>
+                </div>
+                <div>
+                    <AppNav />
+                    <Container>
+                        {title}
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <Label for="first_name">First Name</Label>
+                                <Input type="text" name="first_name" id="first_name"
+                                    onChange={this.handleChange} autoComplete="name" />
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Label for="tc">TC</Label>
-                        <Input type="number" name="tc" id="tc" minLength="13" maxLength="15"
-                            onChange={this.handleChange} />
-                    </FormGroup>
+                            <FormGroup>
+                                <Label for="last_name">Last Name</Label>
+                                <Input type="text" name="last_name" id="last_name"
+                                    onChange={this.handleChange} autoComplete="name" />
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Label for="email">Email</Label>
-                        <Input type="text" name="email" id="email" 
-                            onChange={this.handleChange} />
-                    </FormGroup>
-                    
-                    <FormGroup>
-                        <Button 
-                            color="primary" 
-                            type="submit"
-                            onClick={() => {
-                                store.addNotification({
-                                  title: 'Event',
-                                  message: 'Event booked successfully',
-                                  type: 'default',                         
-                                  container: 'bottom-left',                
-                                  animationIn: ["animated", "fadeIn"],     
-                                  animationOut: ["animated", "fadeOut"],   
-                                  dismiss: {
-                                    duration: 3000 
-                                  }
-                                })
-                              }}    
-                        >
-                            Book
-                        </Button>{' '}
-                        <Button color="secondary" tag={Link} to="/user">Cancel</Button>
-                    </FormGroup>
-                </Form>
-            </Container>
+                            <FormGroup>
+                                <Label for="tc">TC</Label>
+                                <Input type="number" name="tc" id="tc" minLength="13" maxLength="15"
+                                    onChange={this.handleChange} />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="email">Email</Label>
+                                <Input type="text" name="email" id="email"
+                                    onChange={this.handleChange} />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Button
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Book
+                                </Button>{' '}
+                                <Button color="secondary" tag={Link} to="/user">Cancel</Button>
+                            </FormGroup>
+                        </Form>
+                    </Container>
+                </div>
             </div>
         );
     }
 }
-
 export default BookingForm;

@@ -29,4 +29,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
             nativeQuery = true
     )
     void deleteUserByEventId(Long id);
+
+    @Query(
+            value = "SELECT COUNT(*) FROM users WHERE event_id = ?1 AND tc = ?2",
+            nativeQuery = true
+    )
+    int findUsersWithSameIdForAnEvent(Long id, Long tc);
 }
