@@ -35,4 +35,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
             nativeQuery = true
     )
     int findUsersWithSameIdForAnEvent(Long id, Long tc);
+
+    @Query(
+            value = "SELECT quota FROM events WHERE id = ?1",
+            nativeQuery = true
+    )
+    int reamingQuotaOfAnEvent(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(
+            value = "UPDATE events SET quota = quota - 1 WHERE id = ?1",
+            nativeQuery = true
+    )
+    void decreaseQuotaByOne(Long id);
 }

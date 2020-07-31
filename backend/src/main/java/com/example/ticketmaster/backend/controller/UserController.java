@@ -48,10 +48,19 @@ public class UserController {
     ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException {
         if(userRepository.findUsersWithSameIdForAnEvent(user.getEvent().getId(), user.getTc()) == 0)
         {
-            HttpStatus accepted = HttpStatus.ACCEPTED;
-            User result = userRepository.save(user);
-            return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
+            if(userRepository.reamingQuotaOfAnEvent(user.getEvent().getId()) > 0){
+                userRepository.decreaseQuotaByOne(user.getEvent().getId());
+                HttpStatus accepted = HttpStatus.ACCEPTED;
+                User result = userRepository.save(user);
+                return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
+            }
+            else{
+                throw new ApiRequestException(ApiRequestException.QUOTA);
+            }
         }
-        throw new ApiRequestException(ApiRequestException.DUPLICATION);
+        else{
+            throw new ApiRequestException(ApiRequestException.DUPLICATION);
+        }
+
     }
 }
