@@ -15,8 +15,11 @@ class User extends Component {
         }
         this.bookEvent = this.bookEvent.bind(this);
     }
-    bookEvent(id) {
+    bookEvent(id, name, start, end) {
         window.localStorage.setItem("eventId", id);
+        window.localStorage.setItem("eventName", name);
+        window.localStorage.setItem("eventStartTime", start);
+        window.localStorage.setItem("eventEndTime", end);
         this.props.history.push('/booking');
     }
 
@@ -64,9 +67,9 @@ class User extends Component {
 
                             <Button 
                                 color="primary"
-                                onClick={() => this.bookEvent(event.id)}
+                                onClick={() => this.bookEvent(event.id, event.name, event.event_date, event.event_end_date)}
                                 >
-                                Book
+                                Başvur
                                 </Button>
                         </div>    
                     )

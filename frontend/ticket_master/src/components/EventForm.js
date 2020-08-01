@@ -110,7 +110,7 @@ class EventForm extends Component {
     }
 
     render() {
-        const title = <h3 style={{marginTop: '10px'}}>Event Form</h3>
+        const title = <h3 style={{marginTop: '10px'}}>Etkinlik Formu</h3>
         const {events, isLoading} = this.state;
 
         if(isLoading)
@@ -122,8 +122,8 @@ class EventForm extends Component {
                 <td><Moment date={event.event_date} format="DD/MM/YYYY" /></td>
                 <td><Moment date={event.event_end_date} format="DD/MM/YYYY" /></td>
                 <td>{event.quota}</td>
-                <td><Button size="sm" color="secondary" onClick={() => this.editEvent(event.id)} >Modify</Button></td>
-                <td><Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Delete</Button></td>
+                <td><Button size="sm" color="secondary" onClick={() => this.editEvent(event.id)} >Değiştir</Button></td>
+                <td><Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Sil</Button></td>
             </tr>   
         )
 
@@ -141,30 +141,30 @@ class EventForm extends Component {
                         {title}
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
-                                <Label for="name">Title</Label>
+                                <Label for="name">Etkinlik Adı</Label>
                                 <Input type="text" name="name" id="name" value={this.state.item.name}
                                        onChange={this.handleChange} autoComplete="name" />
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="quota">Quota</Label>
+                                <Label for="quota">Kota</Label>
                                 <Input type="number" name="quota" id="quota" value={this.state.item.quota}
                                        onChange={this.handleChange} min={0} autoComplete={0} />
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="event_date">Start Date</Label>
+                                <Label for="event_date">Başlangıç Tarihi</Label>
                                 <DatePicker selected={this.state.item.event_date} onChange={this.handleDateChange} />
                             </FormGroup>
 
                             <FormGroup>
-                                <Label for="event_end_date">End Date</Label>
+                                <Label for="event_end_date">Bitiş  Tarihi</Label>
                                 <DatePicker selected={this.state.item.event_end_date} onChange={this.handleEndDateChange} />
                             </FormGroup>
 
                             <FormGroup>
-                                <Button color="primary" type="submit">Create</Button>{' '}
-                                <Button color="secondary" tag={Link} to="/admin">Cancel</Button>
+                                <Button color="primary" type="submit">Oluştur</Button>{' '}
+                                <Button color="secondary" tag={Link} to="/admin">İptal Et</Button>
                             </FormGroup>
                         </Form>
                     </Container>
@@ -175,11 +175,11 @@ class EventForm extends Component {
                         <Table className="mt-4">
                             <thead>
                             <tr>
-                                <th width="30%">Name</th>
-                                <th width="30%">Start Date</th>
-                                <th width="30%">End Date</th>
-                                <th width="30%">Quota</th>
-                                <th width="10%">Action</th>
+                                <th width="30%">Etkinlik Adı</th>
+                                <th width="30%">Başlangıç Tarihi</th>
+                                <th width="30%">Bitiş  Tarihi</th>
+                                <th width="30%">Kota</th>
+                                <th width="10%">Aksiyon</th>
                             </tr>
                             </thead>
 
