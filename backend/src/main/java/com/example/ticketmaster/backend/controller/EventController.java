@@ -57,12 +57,12 @@ public class EventController {
             notes = "Provide an event name of greater than 2 characters, start date > today, end date> start date to create an event",
             response = Event.class)
     ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
-        if (event.getName().length() < 3) {
+        if (event.getName().length() < 2) {
             throw new ApiRequestException(ApiRequestException.VALID);
         } else if(event.getEvent_date().compareTo(Instant.now()) < 0) {
-            throw new ApiRequestException(ApiRequestException.VALID);
+            throw new ApiRequestException(ApiRequestException.PAST_EVENT_CREATION);
         } else if(event.getEvent_end_date().compareTo(event.getEvent_date()) < 0) {
-            throw new ApiRequestException(ApiRequestException.VALID);
+            throw new ApiRequestException(ApiRequestException.END_START_DATES);
         }else {
             try {
                 Event result = eventRepository.save(event);
@@ -82,12 +82,12 @@ public class EventController {
         ResponseEntity found = getEvent(event.getId());
 
         if(found.hasBody()) {
-            if(event.getName().length() < 3) {
+            if(event.getName().length() < 2) {
                 throw new ApiRequestException(ApiRequestException.VALID);
             } else if(event.getEvent_date().compareTo(Instant.now()) < 0) {
-                throw new ApiRequestException(ApiRequestException.VALID);
+                throw new ApiRequestException(ApiRequestException.PAST_EVENT_MODIFICATION);
             } else if(event.getEvent_end_date().compareTo(event.getEvent_date()) < 0) {
-                throw new ApiRequestException(ApiRequestException.VALID);
+                throw new ApiRequestException(ApiRequestException.END_START_DATES);
             } else {
                 try {
                     Event result = eventRepository.save(event);
@@ -109,7 +109,7 @@ public class EventController {
         if(found.hasBody()){
             Event event = (Event) found.getBody();
             if(event.getEvent_date().compareTo(Instant.now()) < 0) {
-                throw new ApiRequestException(ApiRequestException.VALID);
+                throw new ApiRequestException(ApiRequestException.PAST_EVENT_DELETION);
             }   else {
                 try {
                     userRepository.deleteUserByEventId(id);

@@ -23,9 +23,10 @@ class User extends Component {
     async componentDidMount() {
         const response = await fetch('/api/events');
         const body = await response.json();
+      /*
         let tarih1= Date.parse(body[0].event_date);
         let today1 = Date.parse(this.state.date.toISOString());
-      /*  console.log(tarih1);
+        console.log(tarih1);
         console.log(typeof tarih1);
         console.log(today1);
         console.log(typeof today1);

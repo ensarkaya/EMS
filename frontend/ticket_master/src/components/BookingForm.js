@@ -23,6 +23,7 @@ class BookingForm extends Component {
         this.state = {
             isLoading: true,
             item: this.emptyItem,
+            msg: '',
             isSuccess: false,
             isError: false
         }
@@ -50,7 +51,7 @@ class BookingForm extends Component {
                 setTimeout(() => this.props.history.push('/user'),3000);
             }
             if(body.httpStatus === "BAD_REQUEST") {
-                this.setState({isError: true, isSuccess: false});
+                this.setState({isError: true, isSuccess: false, msg: body.message});
                 setTimeout(() => this.setState({isError:false}),3000);
             }
         } catch(e) {}
@@ -72,8 +73,6 @@ class BookingForm extends Component {
         item.event.id = event;
     }
 
-
-
     render() {
         const title = <h3>Booking Form</h3>
         return (
@@ -81,7 +80,7 @@ class BookingForm extends Component {
                 <div style={{"display": this.state.isSuccess || this.state.isError ? "block" : "none"}}>
                     <SuccessToast children={{show: this.state.isSuccess, message:"İşlem başarıyla gerçekleşti"}}/>
 
-                    <ErrorToast children={{show: this.state.isError, message:"İşlem başarısız oldu"}}/>
+                    <ErrorToast children={{show: this.state.isError, message:this.state.msg}}/>
                 </div>
                 <div>
                     <AppNav />
