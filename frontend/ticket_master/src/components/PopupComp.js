@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Popup from "reactjs-popup";
 import QRCode from "react-qr-code";
-import {Button} from "reactstrap";
 
 export default class PopupComp extends Component{
     render() {

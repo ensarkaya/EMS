@@ -41,6 +41,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/charts")
+    @ApiOperation(value = "Find the name and the number of enrolled users of an event")
+    List<?> getNumberOfEnrolls() {
+        if(userRepository.findNumberOfEnrolledUsersForEvents().isEmpty()) {
+            throw new ApiRequestException(ApiRequestException.NO_RECORDS_FOUND);
+        } else {
+            return userRepository.findNumberOfEnrolledUsersForEvents();
+        }
+    }
+
     @PostMapping("/users")
     @ApiOperation(value = "Save user and book an event",
             notes = "Provide first name of minimum 2 characters, correctly formatted email" +

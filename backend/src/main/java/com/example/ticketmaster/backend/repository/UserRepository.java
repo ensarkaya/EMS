@@ -37,6 +37,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int findUsersWithSameIdForAnEvent(Long id, Long tc);
 
     @Query(
+            value = "SELECT  events.name , COUNT(*) FROM users, events WHERE events.id = users.event_id GROUP BY events.name ORDER BY COUNT(*) DESC",
+            nativeQuery = true
+    )
+    List<?> findNumberOfEnrolledUsersForEvents();
+
+    @Query(
             value = "SELECT quota FROM events WHERE id = ?1",
             nativeQuery = true
     )
