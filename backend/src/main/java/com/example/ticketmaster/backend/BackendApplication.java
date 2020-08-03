@@ -72,11 +72,11 @@ public class BackendApplication {
 
     private ApiInfo apiDetails() {
 	    return new ApiInfo(
-	            "Ticket Master Backend API",
+	            "Event Management System Backend API",
                 "Sample API for personal project",
                 "1.0",
                 "Free to use",
-                new springfox.documentation.service.Contact("Asim Ghani", "ghaniasim@github.io", "asim.ghani@metropolia.fi"),
+                new springfox.documentation.service.Contact("Ensar Kaya", "ensarkaya@github.io", "ensarben@gmail.com"),
                 "API License",
                 "",
                 Collections.emptyList());
