@@ -1,4 +1,4 @@
-package com.example.ticketmaster.backend;
+package com.example.EMS.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

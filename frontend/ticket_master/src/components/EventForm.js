@@ -34,6 +34,7 @@ class EventForm extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.editEvent = this.editEvent.bind(this);
+        this.showCharts=this.showCharts.bind(this);
     }
 
     async handleSubmit(event) {
@@ -103,6 +104,11 @@ class EventForm extends Component {
         this.props.history.push('/editEvent');
     }
 
+    showCharts(id){
+        window.localStorage.setItem("eventId", id);
+        this.props.history.push('/dayCharts');
+    }
+
     async componentDidMount() {
         const response = await fetch('/api/events');
         const body = await response.json();
@@ -124,6 +130,7 @@ class EventForm extends Component {
                 <td>{event.quota}</td>
                 <td><Button size="sm" color="secondary" onClick={() => this.editEvent(event.id)} >Değiştir</Button></td>
                 <td><Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Sil</Button></td>
+                <td><Button size="sm" color="primary" onClick={() => this.showCharts(event.id)}>Günlük Kayıtlar</Button></td>
             </tr>   
         )
 
@@ -171,7 +178,7 @@ class EventForm extends Component {
 
                     {''}
                     <Container>
-                        <h3>Events List</h3>
+                        <h3>Etkinlik Listesi</h3>
                         <Table className="mt-4">
                             <thead>
                             <tr>

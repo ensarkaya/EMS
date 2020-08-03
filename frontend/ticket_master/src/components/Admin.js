@@ -39,7 +39,7 @@ class Admin extends Component {
         return (
             <div>
                 <AppNav />
-                <Button color="primary" tag={Link} to="/event" style={{margin: '10px', float: 'right'}}>Etkinlik Oluştur</Button>
+                <Button color="primary" tag={Link} to="/event" style={{margin: '10px', float: 'right'}}>Etkinlik Oluştur&Değiştir</Button>
                 <Button color="primary" tag={Link} to="/eventsBarChart" style={{margin: '10px', float: 'right'}}>Etkinlik Katılım Grafiklerini Göster</Button>
                 {''}
                     <Container>

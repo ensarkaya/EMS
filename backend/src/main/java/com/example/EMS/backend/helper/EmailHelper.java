@@ -1,4 +1,4 @@
-package com.example.ticketmaster.backend.helper;
+package com.example.EMS.backend.helper;
 
 import java.util.Date;
 import java.util.Properties;

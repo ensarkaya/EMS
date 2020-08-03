@@ -68,13 +68,11 @@ class EditEvent extends Component {
     async loadEvent() {
         const response = await fetch('/api/event/' + window.localStorage.getItem("eventId"));
         const event = await response.json();
-        console.log("merhabalar aq");
         console.log(event);
         this.setState({
             id: event.id,
             name: event.name,
         });
-        console.log("merhabalar aq");
         let tarih= Date.parse(event.event_date);
         console.log(tarih);
         let today = Date.parse(this.state.today.toISOString());

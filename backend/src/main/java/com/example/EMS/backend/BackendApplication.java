@@ -1,9 +1,9 @@
-package com.example.ticketmaster.backend;
+package com.example.EMS.backend;
 
-import com.example.ticketmaster.backend.model.Event;
-import com.example.ticketmaster.backend.model.User;
-import com.example.ticketmaster.backend.repository.EventRepository;
-import com.example.ticketmaster.backend.repository.UserRepository;
+import com.example.EMS.backend.repository.EventRepository;
+import com.example.EMS.backend.repository.UserRepository;
+import com.example.EMS.backend.model.Event;
+import com.example.EMS.backend.model.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,9 +31,11 @@ public class BackendApplication {
             Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",70L);
             Event event3 = createEvent(eventRepo, "Party3","2021-12-19T17:00:00.000Z","2021-12-29T17:00:00.000Z",80L);
 
-            User user = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar@gmail.com1", 12345678912345L);
-            User user2 = createUser(userRepo, event2, "Ensar2", "Kaya2", "ensar@gmail.com2", 12345678912345L);
-            User user3 = createUser(userRepo, event3, "Ensar3", "Kaya3", "ensar@gmail.com3", 12345678912345L);
+            User user = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar@gmail.com1", 1234562342345L, "2019 08 02");
+            User user2 = createUser(userRepo, event2, "Ensar2", "Kaya2", "ensar@gmail.com2", 123456745L,"2020 08 01");
+            User user3 = createUser(userRepo, event2, "Ensar3", "Kaya3", "ensar@gmail.com3", 12312345L,"2020 08 02");
+            User user4 = createUser(userRepo, event2, "Ensar4", "Kaya4", "ensar@gmail.com4", 12345912345L,"2020 08 02");
+            User user5 = createUser(userRepo, event3, "Ensar5", "Kaya5", "ensar@gmail.com5", 12323412345L,"2020 08 02");
 
         };
 	}
@@ -50,7 +52,7 @@ public class BackendApplication {
         return eventRepo.save(event);
     }
 
-    private User createUser(UserRepository userRepo, Event event, String f_name, String l_name, String email, Long tc) {
+    private User createUser(UserRepository userRepo, Event event, String f_name, String l_name, String email, Long tc, String date) {
         User user = new User();
 
         user.setFirst_name(f_name);
@@ -58,6 +60,7 @@ public class BackendApplication {
         user.setTc(tc);
         user.setEmail(email);
         user.setEvent(event);
+        user.setCreatedOn(date);
         return userRepo.save(user);
     }
 

@@ -9,6 +9,7 @@ import EventForm from './components/EventForm';
 import BookingForm from './components/BookingForm';
 import EditEvent from './components/EditEvent';
 import EventsBarChart from "./components/EventsBarChart";
+import DaysBarChart from "./components/DaysBarChart";
 
 class App extends Component {
     render() {
@@ -23,6 +24,7 @@ class App extends Component {
                     <Route path='/booking' exact={true} component={BookingForm} />
                     <Route path='/editEvent' exact={true} component={EditEvent} />
                     <Route path='/eventsBarChart' exact={true} component={EventsBarChart} />
+                    <Route path='/dayCharts' exact={true} component={DaysBarChart} />
                 </Switch>
             </Router>
         );

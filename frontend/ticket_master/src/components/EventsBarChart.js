@@ -33,7 +33,7 @@ export default class EventsBarChart extends Component{
         for(let i in Events){
             data.push({text: Events[i][0], value: Events[i][1]});
         }
-       //console.log(data);
+       console.log(data);
 
         const margin = {top: 20, right: 20, bottom: 30, left: 40};
         return (
