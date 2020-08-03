@@ -25,6 +25,7 @@ export default class DaysBarChart extends Component{
             return (<div>Loading...</div>);
         console.log("Days str: "+Days.toString());
         const data = [];
+        if(Days)
         for(let i in Days){
             console.log("Days: "+Days[i][0] + " Value: " + Days[i][1] );
             data.push({text: Days[i][0], value: Days[i][1]});
@@ -35,7 +36,7 @@ export default class DaysBarChart extends Component{
         return (
             <div>
                 <AppNav />
-                <Button color="primary" tag={Link} to="/event" style={{margin: '10px', float: 'right'}}>Geri Dön</Button>
+                <Button color="primary" tag={Link} to="/eventList" style={{margin: '10px', float: 'right'}}>Geri Dön</Button>
                 {
                     <div style={{width: '50%'}}>
                         <BarChart ylabel='Kullanıcı Sayısı'

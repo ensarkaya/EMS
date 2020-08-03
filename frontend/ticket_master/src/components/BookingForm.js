@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Input, Button, Label, Form, FormGroup } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { store} from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import 'animate.css';
 import ErrorToast from "./ErrorToast";
@@ -117,7 +116,7 @@ class BookingForm extends Component {
 
                             <FormGroup>
                                 <Label for="tc">TCK</Label>
-                                <Input type="number" name="tc" id="tc" minLength="13" maxLength="15"
+                                <Input type="number" name="tc" id="tc" min={"10000000000"} max={"99999999999"} placeholder="10000000000" required
                                     onChange={this.handleChange} />
                             </FormGroup>
 
