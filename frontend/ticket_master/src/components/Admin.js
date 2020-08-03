@@ -39,21 +39,21 @@ class Admin extends Component {
         return (
             <div>
                 <AppNav />
-                <Button color="primary" tag={Link} to="/event" style={{margin: '10px', float: 'right'}}>Create an Event</Button>
+                <Button color="primary" tag={Link} to="/event" style={{margin: '10px', float: 'right'}}>Etkinlik Oluştur&Değiştir</Button>
+                <Button color="primary" tag={Link} to="/eventsBarChart" style={{margin: '10px', float: 'right'}}>Etkinlik Katılım Grafiklerini Göster</Button>
                 {''}
                     <Container>
-                        <h3 style={{marginTop: '20px'}}>Booking List</h3>
+                        <h3 style={{marginTop: '20px'}}>Başvuru Listesi</h3>
                         <Table className="mt-4">
                             <thead>
                                 <tr>
-                                    <th width="20%">First Name</th>
-                                    <th width="20%">Last Name</th>
-                                    <th width="10%">Age</th>
+                                    <th width="20%">Ad</th>
+                                    <th width="20%">Soyad</th>
+                                    <th width="20%">TC</th>
                                     <th width="30%">Email</th>
-                                    <th width="20%">Event</th>   
+                                    <th width="20%">Etkinlik</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 {rows}
                             </tbody>

@@ -7,7 +7,7 @@ class Home extends Component {
             <div>
                 <AppNav />
                 <h2 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
-                    Welcome to Ticket Master!
+                    Etkinlik Yönetim Sistemine Hoşgeldiniz!
                 </h2>
             </div>
         );
