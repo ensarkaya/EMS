@@ -9,13 +9,13 @@ class AppNav extends Component {
                 <NavbarBrand href="/">Etkinlik Yönetim Sistemi</NavbarBrand>
                 <Nav className="ml-auto" navbar>
                 <NavItem>
-                    <NavLink href="/">Home</NavLink>
+                    <NavLink href="/">Anasayfa</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/user">User</NavLink>
+                    <NavLink href="/user">Kullanıcı</NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink href="/admin">Admin</NavLink>
+                <NavLink href="/admin">Yönetici</NavLink>
                 </NavItem>
                 </Nav>
                 </Navbar>

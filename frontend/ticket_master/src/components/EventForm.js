@@ -45,21 +45,21 @@ class EventForm extends Component {
             body: JSON.stringify(item)
         });
         try {
-            console.log("hello there ");
+            //console.log("hello there ");
             const body = await response.json();
-            console.log("body :" + body);
+            //console.log("body :" + body);
             if(body.id > 0) {
                 this.setState({isSuccess: true, isError: false});
                 setTimeout(() => this.setState({isSuccess:false}),3000);
-                setTimeout(() => this.props.history.push("/admin"),3000);
+                setTimeout(() => this.props.history.push("/eventList"),3000);
             }
             if(body.httpStatus === "BAD_REQUEST") {
                 this.setState({isError: true, isSuccess: false, msg:body.message});
                 setTimeout(() => this.setState({isError:false}),3000);
-                setTimeout(() => this.props.history.push("/event"),3000);
+                //setTimeout(() => this.props.history.push("/event"),3000);
             }
         } catch(e) {
-            console.log("anan: "+ e);
+            console.log("error: "+ e);
         }
 
     }

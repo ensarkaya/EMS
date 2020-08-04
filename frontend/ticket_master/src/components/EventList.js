@@ -54,7 +54,7 @@ export default class EventList extends Component {
 
     editEvent(id) {
         window.localStorage.setItem("eventId", id);
-        this.props.history.push('/eventList');
+        this.props.history.push('/editEvent');
     }
 
     showCharts(id){

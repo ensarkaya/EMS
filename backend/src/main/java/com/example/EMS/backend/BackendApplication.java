@@ -27,15 +27,15 @@ public class BackendApplication {
 	@Bean
 	public CommandLineRunner init(EventRepository eventRepo, UserRepository userRepo){
 		return args -> {
-		    Event event1 = createEvent(eventRepo, "Party","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",60L);
-            Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",70L);
-            Event event3 = createEvent(eventRepo, "Party3","2021-12-19T17:00:00.000Z","2021-12-29T17:00:00.000Z",80L);
+		    Event event1 = createEvent(eventRepo, "Party1","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",60L);
+            Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",3L);
+            Event event3 = createEvent(eventRepo, "Party3","2021-12-19T17:00:00.000Z","2021-12-29T17:00:00.000Z",10L);
 
-            User user = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar@gmail.com1", 1234562342345L, "2019 08 02");
-            User user2 = createUser(userRepo, event2, "Ensar2", "Kaya2", "ensar@gmail.com2", 123456745L,"2020 08 01");
-            User user3 = createUser(userRepo, event2, "Ensar3", "Kaya3", "ensar@gmail.com3", 12312345L,"2020 08 02");
-            User user4 = createUser(userRepo, event2, "Ensar4", "Kaya4", "ensar@gmail.com4", 12345912345L,"2020 08 02");
-            User user5 = createUser(userRepo, event3, "Ensar5", "Kaya5", "ensar@gmail.com5", 12323412345L,"2020 08 02");
+            User user  = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar1@gmail.com1", 12345678911L, "2019 08 02");
+            User user4 = createUser(userRepo, event2, "Ensar4", "Kaya4", "ensar4@gmail.com4", 12345321345L,"2020 08 02");
+            User user3 = createUser(userRepo, event2, "Ensar3", "Kaya3", "ensar3@gmail.com3", 12332112332L,"2020 08 02");
+            User user2 = createUser(userRepo, event2, "Ensar2", "Kaya2", "ensar2@gmail.com2", 12312312312L,"2020 08 01");
+            User user5 = createUser(userRepo, event3, "Ensar5", "Kaya5", "ensar5@gmail.com5", 12543112345L,"2020 08 02");
 
         };
 	}

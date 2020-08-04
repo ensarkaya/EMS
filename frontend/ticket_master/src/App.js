@@ -11,6 +11,7 @@ import EditEvent from './components/EditEvent';
 import EventsBarChart from "./components/EventsBarChart";
 import DaysBarChart from "./components/DaysBarChart";
 import EventList from "./components/EventList";
+import Footer from "./components/Footer";
 
 class App extends Component {
     render() {
@@ -28,6 +29,7 @@ class App extends Component {
                     <Route path='/eventsBarChart' exact={true} component={EventsBarChart} />
                     <Route path='/dayCharts' exact={true} component={DaysBarChart} />
                 </Switch>
+                <Footer/>
             </Router>
         );
     }

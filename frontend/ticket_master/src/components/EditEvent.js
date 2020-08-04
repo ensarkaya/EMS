@@ -43,7 +43,7 @@ class EditEvent extends Component {
             if(body.id > 0) {
                 this.setState({isSuccess: true, isError: false});
                 setTimeout(() => this.setState({isSuccess:false}),3000);
-                setTimeout(() => this.props.history.push('/event'),3000);
+                setTimeout(() => this.props.history.push('/eventList'),3000);
             }
             if(body.httpStatus === "BAD_REQUEST") {
                 this.setState({isError: true, isSuccess: false, msg: body.message});
@@ -80,7 +80,7 @@ class EditEvent extends Component {
         if (tarih < today) {
             this.setState({isError: true, isSuccess: false, msg: "Zaten gerçekleşmiş bir etkinliği değiştiremezsiniz"});
             setTimeout(() => this.setState({isError:false}),2000);
-            setTimeout(() => this.props.history.push('/event'),2000);
+            setTimeout(() => this.props.history.push('/eventList'),2000);
         }
     }
 
