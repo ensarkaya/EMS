@@ -5,6 +5,7 @@ import com.example.EMS.backend.model.Event;
 import com.example.EMS.backend.repository.EventRepository;
 import com.example.EMS.backend.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
