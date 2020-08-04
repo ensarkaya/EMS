@@ -51,7 +51,7 @@ public class EventController {
         throw new ApiRequestException(ApiRequestException.NO_RECORDS_FOUND);
     }
 
-    @PostMapping("/events")
+    @PostMapping("/eventsSave")
     @ApiOperation(value = "Save an event",
             notes = "Provide an event name of greater than 2 characters, start date > today, end date> start date to create an event",
             response = Event.class)
@@ -65,7 +65,7 @@ public class EventController {
         }else {
             try {
                 Event result = eventRepository.save(event);
-                return ResponseEntity.created(new URI("/api/events" + result.getId())).body(result);
+                return ResponseEntity.created(new URI("/api/eventsSave" + result.getId())).body(result);
             } catch (Exception e) {
                 System.out.println(ApiRequestException.WRONG);
             }

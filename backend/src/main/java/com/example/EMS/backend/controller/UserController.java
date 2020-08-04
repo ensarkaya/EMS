@@ -89,7 +89,7 @@ public class UserController {
                 emailHelper.sendEmail(user.getEmail());
 
                 userRepository.decreaseQuotaByOne(user.getEvent().getId());
-                HttpStatus accepted = HttpStatus.ACCEPTED;
+                //HttpStatus accepted = HttpStatus.ACCEPTED;
                 User result = userRepository.save(user);
                 return ResponseEntity.created(new URI("/api/users" + result.getId())).body(result);
             }
