@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Table, Container, Button } from 'reactstrap';
+import {Table, Container, Button, NavLink} from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHome, faList} from '@fortawesome/free-solid-svg-icons'
 import AppNav from './AppNav';
 
 class Admin extends Component {
@@ -44,7 +45,7 @@ class Admin extends Component {
                 <Button color="primary" tag={Link} to="/eventsBarChart" style={{margin: '10px', float: 'right'}}>Etkinlik Katılım Grafiklerini Göster</Button>
                 {''}
                     <Container>
-                        <h3 style={{marginTop: '20px'}}>Başvuru Listesi</h3>
+                        <h3 style={{marginTop: '20px'}}><FontAwesomeIcon icon={faList} /> Başvuru Listesi</h3>
                         <Table className="mt-4">
                             <thead>
                                 <tr>

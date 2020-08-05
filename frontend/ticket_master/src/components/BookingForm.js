@@ -7,6 +7,8 @@ import ErrorToast from "./ErrorToast";
 import SuccessToast from "./SuccessToast";
 import PopupComp from "./PopupComp";
 import AppNav from './AppNav';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSave, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 
 class BookingForm extends Component {
 
@@ -48,7 +50,7 @@ class BookingForm extends Component {
             console.log(body);
             if(body.id > 0) {
                 this.setState({isSuccess: true, isError: false});
-                setTimeout(() => this.setState({isSuccess:false, isPopup:true}),3000);
+                setTimeout(() => this.setState({isSuccess:false, isPopup:true}),5000);
                 setTimeout(() => this.props.history.push('/user'),15000);
             }
             if(body.httpStatus === "BAD_REQUEST") {
@@ -122,7 +124,7 @@ class BookingForm extends Component {
 
                             <FormGroup>
                                 <Label for="email">Email Adresi</Label>
-                                <Input type="text" name="email" id="email"
+                                <Input type="email" name="email" id="email"
                                     onChange={this.handleChange} />
                             </FormGroup>
 
@@ -130,10 +132,8 @@ class BookingForm extends Component {
                                 <Button
                                     color="primary"
                                     type="submit"
-                                >
-                                    Başvur
-                                </Button>{' '}
-                                <Button color="secondary" tag={Link} to="/user">İptal et</Button>
+                                ><FontAwesomeIcon icon={faSave} /> Başvur</Button>{' '}
+                                <Button color="secondary" tag={Link} to="/user"><FontAwesomeIcon icon={faWindowClose} /> İptal et</Button>
                             </FormGroup>
                         </Form>
                     </Container>

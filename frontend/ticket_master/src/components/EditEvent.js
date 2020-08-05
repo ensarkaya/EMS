@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker';
 import AppNav from './AppNav';
 import SuccessToast from "./SuccessToast";
 import ErrorToast from "./ErrorToast";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faExchangeAlt, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 
 class EditEvent extends Component {
 
@@ -87,7 +89,7 @@ class EditEvent extends Component {
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     render() {
-        const title = <h3>Etkinlik Değiştirme Forumu</h3>
+        const title = <h3><FontAwesomeIcon icon={faExchangeAlt} /> Etkinlik Değiştirme Formu</h3>
 
         return (
             <div>
@@ -125,8 +127,8 @@ class EditEvent extends Component {
                             </FormGroup>
 
                             <FormGroup>
-                                <Button color="primary" type="submit">Değiştir</Button>{' '}
-                                <Button color="secondary" tag={Link} to="/event">İptal</Button>
+                                <Button color="primary" type="submit"><FontAwesomeIcon icon={faExchangeAlt} />  Değiştir</Button>{' '}
+                                <Button color="secondary" tag={Link} to="/eventList"><FontAwesomeIcon icon={faWindowClose} /> İptal</Button>
                             </FormGroup>
                         </Form>
                     </Container>

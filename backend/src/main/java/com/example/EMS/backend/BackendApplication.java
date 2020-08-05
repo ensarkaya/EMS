@@ -28,15 +28,21 @@ public class BackendApplication {
 	public CommandLineRunner init(EventRepository eventRepo, UserRepository userRepo){
 		return args -> {
 		    Event event1 = createEvent(eventRepo, "Party1","2019-12-29T17:00:00.000Z","2019-12-29T17:00:00.000Z",60L);
-            Event event2 = createEvent(eventRepo, "Party2","2020-12-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",3L);
-            Event event3 = createEvent(eventRepo, "Party3","2021-12-19T17:00:00.000Z","2021-12-29T17:00:00.000Z",10L);
+            Event event2 = createEvent(eventRepo, "Party2","2020-11-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",30L);
+            Event event3 = createEvent(eventRepo, "Party3","2021-12-19T17:00:00.000Z","2021-12-29T17:00:00.000Z",5L);
+            Event event4 = createEvent(eventRepo, "Party4","2020-12-22T17:00:00.000Z","2021-05-29T17:00:00.000Z",2L);
+            Event event5 = createEvent(eventRepo, "Party5","2020-11-29T17:00:00.000Z","2020-12-29T17:00:00.000Z",0L);
+            Event event6 = createEvent(eventRepo, "Party6","2018-12-12T17:00:00.000Z","2021-12-29T17:00:00.000Z",10L);
 
-            User user  = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar1@gmail.com1", 12345678911L, "2019 08 02");
-            User user4 = createUser(userRepo, event2, "Ensar4", "Kaya4", "ensar4@gmail.com4", 12345321345L,"2020 08 02");
-            User user3 = createUser(userRepo, event2, "Ensar3", "Kaya3", "ensar3@gmail.com3", 12332112332L,"2020 08 02");
-            User user2 = createUser(userRepo, event2, "Ensar2", "Kaya2", "ensar2@gmail.com2", 12312312312L,"2020 08 01");
-            User user5 = createUser(userRepo, event3, "Ensar5", "Kaya5", "ensar5@gmail.com5", 12543112345L,"2020 08 02");
-
+            User user  = createUser(userRepo, event1, "Ensar1", "Kaya1", "ensar1@gmail.com", 12345678911L, "2019 08 02");
+            User user4 = createUser(userRepo, event3, "Ensar4", "Kaya4", "ensar4@gmail.com", 12345321345L,"2020 08 02");
+            User user3 = createUser(userRepo, event3, "Ensar3", "Kaya3", "ensar3@gmail.com", 12332112332L,"2020 08 02");
+            User user2 = createUser(userRepo, event3, "Ensar2", "Kaya2", "ensar2@gmail.com", 12312912312L,"2020 08 01");
+            User user5 = createUser(userRepo, event4, "Ensar5", "Kaya5", "ensar5@gmail.com", 12549112345L,"2020 08 02");
+            User user9 = createUser(userRepo, event2, "Ensar9", "Kaya9", "ensar9@gmail.com", 12342321345L,"2018 12 29");
+            User user8 = createUser(userRepo, event6, "Ensar8", "Kaya8", "ensar8@gmail.com", 12335412332L,"2020 08 02");
+            User user7 = createUser(userRepo, event6, "Ensar7", "Kaya7", "ensar7@gmail.com", 12314212312L,"2020 08 01");
+            User user6 = createUser(userRepo, event6, "Ensar6", "Kaya6", "ensar6@gmail.com", 12544312345L,"2020 08 02");
         };
 	}
 

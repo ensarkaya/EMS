@@ -3,6 +3,8 @@ import BarChart from 'react-bar-chart';
 import AppNav from './AppNav';
 import {Button} from "reactstrap";
 import {Link} from "react-router-dom";
+import {faUndo} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default class EventsBarChart extends Component{
     constructor(props) {
@@ -39,7 +41,7 @@ export default class EventsBarChart extends Component{
         return (
             <div>
                 <AppNav />
-                <Button color="primary" tag={Link} to="/admin" style={{margin: '10px', float: 'right'}}>Geri Dön</Button>
+                <Button color="primary" tag={Link} to="/admin" style={{margin: '10px', float: 'right'}}><FontAwesomeIcon icon={faUndo} /> Geri Dön</Button>
                 {
                     <div style={{width: '50%'}}>
                     <BarChart ylabel='Başvuru Sayısı'

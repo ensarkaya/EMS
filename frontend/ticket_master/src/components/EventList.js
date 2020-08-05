@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Table, Container, Button  } from 'reactstrap';
+import {Table, Container, Button, NavLink} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import "react-datepicker/dist/react-datepicker.css";
 import AppNav from './AppNav';
 import ErrorToast from "./ErrorToast";
 import SuccessToast from "./SuccessToast";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faList, faUndo} from "@fortawesome/free-solid-svg-icons";
 
 export default class EventList extends Component {
     constructor(props) {
@@ -69,7 +71,6 @@ export default class EventList extends Component {
     }
 
     render() {
-        const title = <h3 style={{marginTop: '10px'}}>Etkinlik Listesi</h3>
         const {events, isLoading} = this.state;
 
         if(isLoading)
@@ -97,9 +98,9 @@ export default class EventList extends Component {
 
                 <div>
                     <AppNav />
-                    <Button color="primary" tag={Link} to="/admin" style={{margin: '10px', float: 'right'}}>Geri Dön</Button>
+                    <Button color="primary" tag={Link} to="/admin" style={{margin: '10px', float: 'right'}}><FontAwesomeIcon icon={faUndo} /> Geri Dön</Button>
                     <Container>
-                        {title}
+                        <h3 style={{marginTop: '10px'}}><FontAwesomeIcon icon={faList} /> Etkinlik Listesi</h3>
                     </Container>
 
                     {''}
@@ -111,7 +112,7 @@ export default class EventList extends Component {
                                 <th width="30%">Başlangıç Tarihi</th>
                                 <th width="30%">Bitiş  Tarihi</th>
                                 <th width="30%">Kota</th>
-                                <th width="10%">Aksiyon</th>
+                                <th width="30%" align={"right"}>Aksiyon</th>
                             </tr>
                             </thead>
 

@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import AppNav from './AppNav';
 import ErrorToast from "./ErrorToast";
 import SuccessToast from "./SuccessToast";
+import {faSave, faUndo, faWindowClose} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class EventForm extends Component {
 
@@ -86,7 +88,7 @@ class EventForm extends Component {
 
 
     render() {
-        const title = <h3 style={{marginTop: '10px'}}>Etkinlik Formu</h3>
+        const title = <h3 style={{marginTop: '10px'}}><FontAwesomeIcon icon={faSave} /> Etkinlik Kayıt Formu</h3>
         const { isLoading} = this.state;
 
         if(isLoading)
@@ -102,7 +104,7 @@ class EventForm extends Component {
 
                 <div>
                     <AppNav />
-                    <Button color="primary" tag={Link} to="/admin" style={{margin: '10px', float: 'right'}}>Geri Dön</Button>
+                    <Button color="primary" tag={Link} to="/admin" style={{margin: '10px', float: 'right'}}><FontAwesomeIcon icon={faUndo} /> Geri Dön</Button>
                     <Container>
                         {title}
                         <Form onSubmit={this.handleSubmit}>
@@ -129,8 +131,8 @@ class EventForm extends Component {
                             </FormGroup>
 
                             <FormGroup>
-                                <Button color="primary" type="submit">Oluştur</Button>{' '}
-                                <Button color="secondary" tag={Link} to="/admin">İptal Et</Button>
+                                <Button color="primary" type="submit"><FontAwesomeIcon icon={faSave} />  Oluştur</Button>{' '}
+                                <Button color="secondary" tag={Link} to="/admin"><FontAwesomeIcon icon={faWindowClose} />  İptal Et</Button>
                             </FormGroup>
                         </Form>
                     </Container>

@@ -3,6 +3,8 @@ import { Button } from 'reactstrap';
 import Moment from 'react-moment';
 
 import AppNav from './AppNav';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSmile} from "@fortawesome/free-solid-svg-icons";
 
 class User extends Component {
 
@@ -38,8 +40,9 @@ class User extends Component {
        */
         for (let i in body) {
             let tarih= Date.parse(body[i].event_date);
+            let tarih_end= Date.parse(body[i].event_end_date);
             let today = Date.parse(this.state.date.toISOString());
-            if (tarih < today) {
+            if (tarih < today || tarih_end < today) {
                 body.splice(i, 1);
             }
         }
@@ -68,9 +71,7 @@ class User extends Component {
                             <Button 
                                 color="primary"
                                 onClick={() => this.bookEvent(event.id, event.name, event.event_date, event.event_end_date)}
-                                >
-                                Başvur
-                                </Button>
+                                ><FontAwesomeIcon icon={faSmile} /> Başvur</Button>
                         </div>    
                     )
                 }   
